@@ -1,0 +1,38 @@
+TKYTEL COMMENT 1
+                                                          東京広域電話網
+                                                              2025-04-07
+
+                            インシデント報告
+
+1. 概要
+
+    東京広域電話網（以下、網とする）の接続状況を記述した Mantela.json
+  を通じて、網に接続されている局の Tailscale Invitation Link 一件が流
+  出した。
+
+2. 経緯
+
+    公開された Mantela.json に、本来掲載されるべき URL とは異なる URL
+  が誤って掲載されていたことによる。
+
+3. 想定されるリスク
+
+    流出した Invitation Link を通じ、脅威へ暴露されること。
+
+4. 処置
+
+    Tailscale Invitation Link の URL を含む Mantela.json を修正を依頼
+  した。また、流出した Tailscale Invitation Link の Revoke を依頼し、
+  新たな Invitation Link の生成を依頼した。
+
+5. 備考
+
+    流出した Invitation Link は GitHub Pages 上で公開されており、
+  GitHub 上に編集履歴が残ることから、修正後も当該リンクへのアクセスは
+  可能である。
+
+6. 対策
+
+    うっかりしていた。しっかりする。
+
+                                                                    以上
