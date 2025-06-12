@@ -17,7 +17,6 @@ escape() {
 	"
 }
 
-# 最悪
 cat <<EOF
 <!DOCTYPE html>
 <html lang="ja">
@@ -60,7 +59,6 @@ for filename in *.txt;do
 EOF
 done
 
-# 最悪2
 cat <<EOF
 </tbody>
 </table>
