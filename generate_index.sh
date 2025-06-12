@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -eu
 
 #区切り文字の置換？を無効化
 IFS=""
