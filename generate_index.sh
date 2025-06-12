@@ -42,7 +42,7 @@ EOF
 for filename in *.txt;do
     # 文書番号
     NUMBER=${filename%.txt}
-    # 表題を空行まで取得し、先頭の空白・改行を削除
+    # 表題
     TITLE=$(sed -n "1,/^$/d; /^$/q; p" ${filename} | sed "s/^ *//" | sed -z "s/\\n//g" | escape)
     
     DATE_RAW=$(sed -n "/^$/{x;1!p;q};h" ${filename} | sed "s/^ *//" | escape)
