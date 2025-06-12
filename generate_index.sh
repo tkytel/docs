@@ -27,13 +27,14 @@ echo "<!DOCTYPE html>
 <tbody>"
 
 for filename in *.txt;do
+    # 文書番号
     NUMBER=${filename%.txt}
-    #echo 文書番号 $NUMBER
-    AUTHOR=`sed -n 2p ${filename} | xargs echo`
-    #echo 著者 $AUTHOR
-    TITLE=`sed -n 5p ${filename} | xargs echo`
-    #echo タイトル $TITLE
-    DATE_RAW=`sed -n 3p ${filename} | xargs echo`
+    # 著者名
+    AUTHOR=`sed -n 2p ${filename} | sed "s/^ *//"`
+    # 表題を空行まで取得し、先頭の空白・改行を削除
+    TITLE=`sed -n "5,/^$/p" ${filename} | sed "s/^ *//" | sed -z "s/\\n//g"`
+    
+    DATE_RAW=`sed -n 3p ${filename} | sed "s/^ *//"`
     DATE_SLASHED=`sed -n 3p ${filename} | xargs date "+%Y/%m/%d" --date`
 
     echo "<tr>
