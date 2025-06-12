@@ -42,8 +42,6 @@ EOF
 for filename in *.txt;do
     # 文書番号
     NUMBER=${filename%.txt}
-    # 著者名
-    AUTHOR=$(sed -n 2p ${filename} | sed "s/^ *//" | escape)
     # 表題を空行まで取得し、先頭の空白・改行を削除
     TITLE=$(sed -n "5,/^$/p" ${filename} | sed "s/^ *//" | sed -z "s/\\n//g" | escape)
     
