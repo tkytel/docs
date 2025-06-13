@@ -21,7 +21,7 @@ jobs:
         run: |
           mkdir build
           ./generate_index.sh > build/index.html
-          ls *.txt | xargs -I % cp % build/%
+          cp *.txt build/.
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
