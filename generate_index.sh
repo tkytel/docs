@@ -27,6 +27,9 @@ cat <<EOF
 </head>
 <body>
 <h1>TKYTEL COMMENT</h1>
+<p>
+東京広域電話網 文書部 の発行する TKYTEL COMMENT では、東京広域電話網に関するさまざまについての記録を提供します。
+</p>
 <hr>
 <table>
 <thead>
