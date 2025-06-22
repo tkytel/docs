@@ -1,6 +1,6 @@
-TKYTEL COMMENT 7
+TKYTEL COMMENT 8
                                                           東京広域電話網
-                                                              2025-06-21
+                                                              2025-06-23
 
                   TKYTEL COMMENT のライセンスについて
 
@@ -35,10 +35,10 @@ TKYTEL COMMENT 7
 
 4. 以前の文書のライセンス
 
-    本文書は CC BY 4.0 の下で利用できる。
+    当然、本文書は CC BY 4.0 の下で利用できる。
 
-    TKYTEL COMMENT 1 から TKYTEL COMMENT 6 までの各文書のうち、ライセ
+    TKYTEL COMMENT 1 から TKYTEL COMMENT 7 までの各文書のうち、ライセ
   ンスや再配布について明示的に述べられていないものについては、CC BY
-  4.0 の下で利用できる。
+  4.0 の下で利用できる。これについては、各文書の著者に確認を取った。
 
                                                                     以上
