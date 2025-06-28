@@ -1,7 +1,7 @@
-TKYTEL COMMENT XX
+TKYTEL COMMENT 9
                                                           東京広域電話網
                                                                上羽 未栞
-                                                              2025-06-XX
+                                                              2025-06-28
 
           交換局ホップを利用した Fraggle 攻撃の可能性について
 
