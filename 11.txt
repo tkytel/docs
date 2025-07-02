@@ -1,6 +1,7 @@
-TKYTEL COMMENT 11
+TKYTEL COMMENT 11 (Errata 1)
                                                           東京広域電話網
                                        Tokyo Wide Area Telephony Network
+                                                              2025-07-02
                                                               2025-07-02
 
           TKYTEL COMMENT が main ブランチにマージされたとき、
@@ -9,5 +10,6 @@ TKYTEL COMMENT 11
 1. 概要
 
     この文書で述べることはない。この文書の再配布は無制限に許可される。
+  ダミー文書の内容がないよう。
 
                                                                     以上
