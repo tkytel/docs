@@ -2,9 +2,6 @@
 
 set -eu
 
-#区切り文字の置換？を無効化
-IFS=""
-
 # 簡易 HTML エスケープ
 escape() {
 	sed -e "
@@ -42,9 +39,9 @@ cat <<EOF
 <tbody>
 EOF
 
-for filename in *.txt;do
+for filename in $(find . -name \*.txt | sort -V);do
     # 文書番号
-    NUMBER=${filename%.txt}
+    NUMBER="$(echo "$filename" | sed 's/[^0-9]*\([0-9]*\).*/\1/')"
     # 表題
     TITLE=$(sed -n "1,/^$/d; /^$/q; p" ${filename} | sed "s/^ *//" | sed -z "s/\\n//g" | escape)
     
