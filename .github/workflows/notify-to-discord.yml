@@ -34,12 +34,9 @@ jobs:
       - name: Read lines from file
         id: readfile
         run: |
-          target_file=${{ steps.changed.outputs.first_txt }}
-
-          # 行が存在するかチェックしながら読み取り
-          number=$(sed -n '1p' "$target_file")
-          author=$(sed -n '2p' "$target_file" | tr -d ' \t')
-          title=$(sed -n '3p' "$target_file" | tr -d ' \t')
+          number=$(sed -n '1p' "${{ steps.changed.outputs.target }}")
+          author=$(sed -n '2p' "${{ steps.changed.outputs.target }}" | tr -d ' \t')
+          title=$(sed -n '3p' "${{ steps.changed.outputs.target }}" | tr -d ' \t')
 
           echo "number=$number" >> "$GITHUB_OUTPUT"
           echo "author=$author" >> "$GITHUB_OUTPUT"
