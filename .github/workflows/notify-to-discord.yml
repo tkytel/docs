@@ -37,13 +37,13 @@ jobs:
           target_file=${{ steps.changed.outputs.first_txt }}
 
           # 行が存在するかチェックしながら読み取り
-          line1=$(sed -n '1p' "$target_file")
-          line2=$(sed -n '2p' "$target_file" | tr -d ' \t')
-          line5=$(sed -n '3p' "$target_file" | tr -d ' \t')
+          number=$(sed -n '1p' "$target_file")
+          author=$(sed -n '2p' "$target_file" | tr -d ' \t')
+          title=$(sed -n '3p' "$target_file" | tr -d ' \t')
 
-          echo "line1=$line1" >> "$GITHUB_OUTPUT"
-          echo "line2=$line2" >> "$GITHUB_OUTPUT"
-          echo "line5=$line5" >> "$GITHUB_OUTPUT"
+          echo "number=$number" >> "$GITHUB_OUTPUT"
+          echo "author=$author" >> "$GITHUB_OUTPUT"
+          echo "title=$title" >> "$GITHUB_OUTPUT"
 
 
       - name: Notify to Discord
@@ -53,8 +53,8 @@ jobs:
           -d '{
             "username": "TKYTEL COMMENT",
             "embeds": [{
-              "title": "${{ steps.readfile.outputs.line1 }}",
-              "description": "${{ steps.readfile.outputs.line5 }} by ${{ steps.readfile.outputs.line2 }} が投稿されました。",
+              "title": "${{ steps.readfile.outputs.number }}",
+              "description": "${{ steps.readfile.outputs.title }} by ${{ steps.readfile.outputs.author }} が投稿されました。",
               "color": 16753920,
               "url": "https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}",
               "timestamp": "'$(date -u +"%Y-%m-%dT%H:%M:%S.000Z")'"
