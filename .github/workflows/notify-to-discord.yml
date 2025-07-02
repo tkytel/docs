@@ -3,7 +3,7 @@ name: Post to Discord
 on:
   push:
     paths: ["**.txt"]
-    branches: ["*"]
+    branches: ["main"]
 
 permissions:
   contents: read
