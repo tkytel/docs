@@ -1,0 +1,145 @@
+TKYTEL COMMENT 39473207423
+                                                                  漏れ
+                                                              2025-06-10
+
+           ファミコン通信アダプタ現代復活プロジェクト調査報告
+
+1. 概要
+
+    以下の通り、ファミコン通信アダプタについて AI に調査させた。
+
+    ファミコン通信アダプタ（ファミリーコンピュータ ネットワークシステ
+  ム）は、1988 年 9 月に日本で発売された任天堂初の家庭用ゲーム機向けオ
+  ンラインプラットフォームである。現代のインターネット以前の時代に、株
+  式取引、天気予報、競馬の賭けなどのサービスを提供していた。
+
+2. 技術解析・リバースエンジニアリングの現状
+
+2.1. nesdev.org コミュニティでの活発な解析
+
+    愛好家のコミュニティが活発にファミコン通信システムの復活プロジェク
+  トに取り組んでいる。特に、64DD の Randnet+ プロジェクトの開発者が、
+  同様の手法でファミコン通信システムをオンラインに復活させることを目指
+  している。
+
+    参考リンク: <https://forums.nesdev.org/viewtopic.php?t=25197>
+
+2.2. ハードウェア詳細解析
+
+    ファミコン通信システムは、独自のメモリマッピングシステムと内蔵 CPU
+  を持つ複雑なデバイスである。
+
+  - RF5C66 チップ: メインマッパー機能を提供
+  - RF5A18: 65C02 プロセッサ搭載、独立した CPU クロック
+  - 内蔵漢字 ROM: $5000-$5FFF にマップ
+  - 8k バイト W-RAM: $6000 にマップ
+  - 16KiB CHR RAM: 2 つの 8 KiB チップ使用
+
+    愛好家たちは基板の詳細な回路図を作成し、各チップの機能を解析してい
+  る。また、Oki の MSM6827L モデムチップの詳細なピン配置や機能も文書化
+  されている。
+
+    参考リンク: <https://www.nesdev.org/wiki/Famicom_Network_System>,
+  <https://forums.nesdev.org/viewtopic.php?t=18530>
+
+3. 現代通信回線への接続試行
+
+3.1. DreamPi 方式の応用検討
+
+    現代では固定電話回線を持たない人が多いため、ドリームキャストで使用
+  されている DreamPi のような解決策の使用が検討されている。DreamPi
+  は、Raspberry Pi を使用してブロードバンド接続を古いダイヤルアップモ
+  デムが理解できる形式に変換するソフトウェアである。
+
+    参考リンク: <https://dreamcastlive.net/dreampi-tutorial/>,
+  <https://github.com/retronas/retronas/wiki/DreamPi>
+
+3.2. X.25 プロトコルの分析
+
+    当時の NTT は X.25 ネットワークを運用していたため、ファミコン通信
+  システムは X.25 モデムである可能性が高く、これは 2 台のモデムを直接
+  接続することを可能にする可能性がある。
+
+    参考リンク:
+  <https://www.ntt.com/content/dam/nttcom/hq/jp/business/services/network/data-network/contents/pdf/pt_1.pdf>
+
+4. 実験用ハードウェアの提供
+
+4.1. フラッシュ可能なカートリッジ
+
+    愛好家が独自のコードを実行するためのフラッシュ可能なカードを 9 枚
+  用意しており、ROM バーナーさえあれば実験が可能である。これらは多くの
+  モデルで動作するが、最初期の CIC には対応していない。価格は $10 USD
+  + 送料で提供されている。
+
+5. ソフトウェアの現状
+
+5.1. ROM ダンプの入手状況
+
+    2019 年、Ben Boldt という nesDev フォーラムのユーザーがファミコン
+  通信システムモデムと JRA-PAT ROM を入手してダンプを作成した。また、
+  以下のソフトウェアもダンプされている。
+
+  - Nomura no Famicom Trade
+  - Super Mario Club
+  - JRA-PAT（競馬賭けソフト）
+
+    参考リンク:
+  <https://lostmediawiki.com/Family_Computer_Network_System/TV-NET_(partially_found_ROM_and_peripherals_of_telecommunication_service_for_Famicom;_1987-1991)>
+
+5.2. エミュレーション対応の課題
+
+    ROM には FCN 拡張子が付けられているが、現在このファイルをサポート
+  するエミュレータは存在しないため、実行は不可能である。
+
+    参考リンク: <https://github.com/libretro/RetroArch/issues/14412>
+
+6. 国際的な情報とプロジェクト
+
+6.1. 詳細な技術文書化
+
+    Ben Boldt が漢字 ROM のための包括的な漢字テーブルを作成しており、
+  8192 個の PNG 画像を含む詳細な Web ページで閲覧可能である。
+
+    参考リンク: <https://benboldtumd.github.io/fns_kanji_tables/>
+
+6.2. 歴史的背景
+
+    ファミコン通信システムは任天堂社長の山内溥の先見性により開発され
+  た。彼は 1987 年に情報化時代の到来を予見し、任天堂をおもちゃ会社から
+  通信会社へと変革することを目指していた。
+
+    参考リンク:
+  <https://en.wikipedia.org/wiki/Family_Computer_Network_System>,
+  <https://niwanetwork.org/wiki/Famicom_Network_System>
+
+7. その他の参考情報
+
+7.1. 個人サイトでの詳細レポート
+
+    James S 氏による詳細なハードウェア分析とソフトウェアスクリーンショ
+  ットが提供されている。
+
+    参考リンク:
+  <https://sites.google.com/site/jamesskingdom/Home/video-games-by-james-s/famicom-network-system>
+
+8. 現在の状況と今後の展望
+
+    現在、完全に機能する現代版実装はまだ存在しないが、複数の開発者が協
+  力してサーバーの設定やカスタムソフトウェアの開発を進めており、将来的
+  には現代のインターネットに接続して使用できる可能性がある。
+
+    この分野は非常に専門的で技術的な知識を要求するが、レトロゲーミング
+  コミュニティの情熱的な愛好家たちによって着実に進歩している。特に
+  nesdev.org フォーラムでは活発な議論と実験が続けられている。
+
+8.1. 主要コミュニティ
+
+  - nesdev.org: 技術的な議論と解析の中心地
+  - Forest of Illusion: ROM 保存プロジェクト
+  - No-Intro: ダンプ ROM の標準化団体
+
+    この報告書は 2025 年 6 月時点での情報に基づいている。プロジェクト
+  の進展については、上記のリンク先で最新情報を確認されたい。
+
+                                                                    以上

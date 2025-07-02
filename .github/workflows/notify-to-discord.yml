@@ -1,0 +1,63 @@
+name: Post to Discord
+
+on:
+  push:
+    paths: ["**.txt"]
+    branches: ["*"]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Get changed files
+        id: changed
+        run: |
+          git fetch origin ${{ github.event.before }} ${{ github.sha }}
+
+          # 変更されたファイル一覧を取得
+          changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+
+          # .txt ファイルのみを抽出し、ソートして最初の1件を取得
+          target=$(echo "$changed_files" | grep '\.txt$' | sort | head -n 1 || true)
+
+          echo "First .txt file: $first_txt"
+          echo "target=$target" >> "$GITHUB_OUTPUT"
+      
+      - name: Read lines from file
+        id: readfile
+        run: |
+          target_file=${{ steps.changed.outputs.first_txt }}
+
+          # 行が存在するかチェックしながら読み取り
+          line1=$(sed -n '1p' "$target_file")
+          line2=$(sed -n '2p' "$target_file" | tr -d ' \t')
+          line5=$(sed -n '3p' "$target_file" | tr -d ' \t')
+
+          echo "line1=$line1" >> "$GITHUB_OUTPUT"
+          echo "line2=$line2" >> "$GITHUB_OUTPUT"
+          echo "line5=$line5" >> "$GITHUB_OUTPUT"
+
+
+      - name: Notify to Discord
+        run: |
+          curl -H "Content-Type: application/json" \
+          -X POST \
+          -d '{
+            "username": "TKYTEL COMMENT",
+            "embeds": [{
+              "title": "${{ steps.readfile.outputs.line1 }}",
+              "description": "${{ steps.readfile.outputs.line5 }} by ${{ steps.readfile.outputs.line2 }} が投稿されました。",
+              "color": 16753920,
+              "url": "https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}",
+              "timestamp": "'$(date -u +"%Y-%m-%dT%H:%M:%S.000Z")'"
+            }]
+          }' \
+          ${{ secrets.DISCORD_WEBHOOK_URL }}
