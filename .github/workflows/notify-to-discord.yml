@@ -1,0 +1,110 @@
+name: Post to Discord
+
+on:
+  push:
+    paths: ["**.txt"]
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  post-to-discord:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 過去のコミットとの差分取得に必要
+
+      - name: Extract data from changed .txt file
+        id: extract
+        run: |
+          python3 <<'EOF'
+          import subprocess
+          import os
+          import sys
+
+          def run(cmd):
+              return subprocess.check_output(cmd, shell=True, text=True).strip()
+
+          before = os.environ.get("GITHUB_EVENT_BEFORE")
+          after = os.environ.get("GITHUB_SHA")
+
+          # 差分取得
+          diff_cmd = f"git diff --name-only {before} {after}"
+          changed_files = run(diff_cmd).splitlines()
+
+          # .txt ファイルに絞る
+          txt_files = sorted([f for f in changed_files if f.endswith(".txt")])
+          if not txt_files:
+              print("::warning:: No .txt files changed")
+              sys.exit(0)
+
+          target = txt_files[0]
+
+          # ファイル内容読み込み
+          with open(target, encoding="utf-8") as f:
+              lines = [line.rstrip() for line in f]
+
+          # 1. number の抽出
+          number = None
+          if lines and lines[0].startswith("TKYTEL COMMENT"):
+              parts = lines[0].split()
+              if len(parts) >= 3 and parts[2].isdigit():
+                  number = parts[2]
+
+          # 2. author の抽出（2行目以降、最初の空行の直前まで）
+          author_lines = []
+          for line in lines[1:]:
+              if line.strip() == "":
+                  break
+              author_lines.append(line.strip())
+          if author_lines:
+              author = ", ".join(author_lines[:-1]) if len(author_lines) >= 2 else author_lines[0]
+          else:
+              author = ""
+
+          # 3. title の抽出（最初の空行の次の行から、次の空行まで）
+          try:
+              blank_idx = lines.index("")
+              title_lines = []
+              for line in lines[blank_idx+1:]:
+                  if line.strip() == "":
+                      break
+                  title_lines.append(line.strip())
+              title = " ".join(title_lines)
+          except ValueError:
+              title = ""
+
+          print(f"Found file: {target}")
+          print(f"number={number}")
+          print(f"author={author}")
+          print(f"title={title}")
+
+          # GitHub Actions の出力として設定
+          with open(os.environ["GITHUB_OUTPUT"], "a") as out:
+              out.write(f"file={target}\n")
+              out.write(f"number={number}\n")
+              out.write(f"author={author}\n")
+              out.write(f"title={title}\n")
+          EOF
+        env:
+          GITHUB_EVENT_BEFORE: ${{ github.event.before }}
+          GITHUB_SHA: ${{ github.sha }}
+
+      - name: Notify to Discord
+        run: |
+          curl -H "Content-Type: application/json" \
+            -X POST \
+            -d '{
+              "username": "TKYTEL COMMENT",
+              "embeds": [{
+                "title": "TKYTEL COMMENT ${{ steps.extract.outputs.number }}",
+                "description": "${{ steps.extract.outputs.title }} by ${{ steps.extract.outputs.author }} が投稿されました。",
+                "color": 16753920,
+                "url": "https://github.com/${{ github.repository }}/commit/${{ github.sha }}",
+                "timestamp": "'$(date -u +"%Y-%m-%dT%H:%M:%S.000Z")'"
+              }]
+            }' \
+            ${{ secrets.DISCORD_WEBHOOK_URL }}
