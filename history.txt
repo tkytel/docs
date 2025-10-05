@@ -20,11 +20,11 @@ TKYTEL COMMENT XX
 
 2.0. 広島仮想閉域網における電話
 
-    2022 年 4 月頃、pepepper 氏によって広島仮想閉域網（Hiroshima
-  Virtual Closed Area Network; 以下、HVCAN とする）が構想され、実際に
-  構築された [2-0-1]。HVCAN 上では FreePBX を用いた電話サービスが提供
-  され [2-0-2,2-0-3]、黒電話を用いた内線通話やモデムを用いたデータ通信
-  が実現されていた [2-0-4]。
+    2022 年 4 月頃、pepepper 氏によって広島仮想閉域ネットワーク
+  （Hiroshima Virtual Closed Area Network; 以下、HVCAN とする）が構想
+  され、実際に構築された [2-0-1]。HVCAN 上では FreePBX を用いた電話サ
+  ービスが提供され [2-0-2,2-0-3]、黒電話を用いた内線通話やモデムを用い
+  たデータ通信が実現されていた [2-0-4]。
 
   [2-0-1]: https://x.com/pepepper_cpp/status/1514616411255361539
   [2-0-2]: https://x.com/pepepper_cpp/status/1538561786383077377
@@ -49,10 +49,12 @@ TKYTEL COMMENT XX
 2.2. 網の発足
 
     2024 年 11 月 11 日、網を実現する上でのバックボーンが Tailscale に
-  確定した。それ以前には HVCAN をバックボーンとする案があった。網にお
-  ける初の外線が yude-KusaReMKN 局間において実現された [2-2-1]。これを
-  受け、2024 年 11 月 13 日、yude 局、sasakulab 局、及び KusaReMKN 局
-  による電話網拡大が目論まれるも、失敗したとみられる [2-2-2]。
+  確定した。それ以前には、HVCAN の後継である MMTNET（Malleable Mutual
+  Tunneling Network for Experimental Technologies）をバックボーンとす
+  る案があり、実践されようとしていた。網における初の外線が yude 局及び
+  KusaReMKN 局の二局間において実現された [2-2-1]。これを受け、2024 年
+  11 月 13 日、yude 局、sasakulab 局、及び KusaReMKN 局による電話網拡
+  大が目論まれるも、失敗したとみられる [2-2-2]。
 
     2024 年 11 月 18 日、ジミニー局においてモーニングコールのサービス
   が開始された [2-2-3]。このサービスは、黒電話からでも利用できるよう、
