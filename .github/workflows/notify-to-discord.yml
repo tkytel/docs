@@ -103,7 +103,7 @@ jobs:
                 "title": "TKYTEL COMMENT ${{ steps.extract.outputs.number }}",
                 "description": "${{ steps.extract.outputs.title }} by ${{ steps.extract.outputs.author }} が投稿されました。",
                 "color": 16753920,
-                "url": "https://github.com/${{ github.repository }}/commit/${{ github.sha }}",
+                "url": "https://tkytel.github.io/docs/${{ steps.extract.outputs.number }}.txt",
                 "timestamp": "'$(date -u +"%Y-%m-%dT%H:%M:%S.000Z")'"
               }]
             }' \
