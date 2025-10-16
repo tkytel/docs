@@ -152,21 +152,30 @@ TKYTEL COMMENT XX
 
 2.5. 網における活動の発表
 
-    2025 年 1 月 25 日 技術書博覧会
-  きなこ氏とエンカ、LT の約束を取り付けられる
+    2025 年 1 月 25 日、横浜産貿ホールにて開催された技術書博覧会におい
+  て、サークル OtakuAssembly から出版される同人誌 OtakuAssembly Vol. 3
+  に pepepper 氏がワープロに関連する内容を寄稿したことから、同イベント
+  に yude 氏、ジミニー氏、及び KusaReMKN が参加した。その際、きなこ氏
+  及び慕狼ゆに氏に遭遇した。ここで、pepepper 氏及び KusaReMKN に対して
+  LT（Lightning Talk）発表の約束を取り付けられた。
 
-      2025/01/27  いまさら VoIP 網
-  https://zenn.dev/kusaremkn/articles/abd760f9f2f450
+    LT 発表に先立って、既に Zenn のスクラップとして公開されていた内容
+  を修正・再構成し、2025 年 1 月 27  日に「いまさら VoIP 網」として公
+  開した [2-5-1]。追って、2 月 11 日には「VoIP ルータを使って黒電話を
+  IP 電話機にする」を、2 月 21 日には「ICOM VE-TA10 を使うためにパケッ
+  トを書き換えたりする」を公開した [2-5-2, 2-5-3]。
 
-    2025/02/11  VoIP ルータを使って黒電話を IP 電話機にする
-  https://zenn.dev/kusaremkn/articles/187222dc1d4f1d
+    これらの記事の内容を踏まえ、2025 年 2 月 21 日、第 119 回 エンジニ
+  ア作業飲み集会において「世も令和になって久しいのでオレオレ IP 電話網
+  や黒電話で遊んでみる」と題して LT 発表を行った [2-5-4]。同日には
+  pepepper 氏による発表も行われた。LT 発表のアーカイブ動画は YouTube
+  チャンネル「エンジニア集会」でトップの再生回数となっている [2-5-5]。
 
-      2025/02/21 ICOM VE-TA10 を使うためにパケットを書き換えたりする
-  https://zenn.dev/kusaremkn/articles/cb32b500fc1334
-
-      2025-02-21: 世も令和になって久しいのでオレオレ IP 電話網や黒電話で遊んでみる
-  https://kusaremkn.com/slides/
-  https://www.youtube.com/watch?v=owmYCb4_ucE
+  [2-5-1]: https://zenn.dev/kusaremkn/articles/abd760f9f2f450
+  [2-5-2]: https://zenn.dev/kusaremkn/articles/187222dc1d4f1d
+  [2-5-3]: https://zenn.dev/kusaremkn/articles/cb32b500fc1334
+  [2-5-4]: https://kusaremkn.com/slides/2025-02-21-0-slide.pdf
+  [2-5-5]: https://www.youtube.com/watch?v=owmYCb4_ucE
 
 2.6. 網の発展
 
