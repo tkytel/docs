@@ -4,7 +4,7 @@ TKYTEL COMMENT 18
                                                               2025-11-15
 
                        しっかりするの濫用について
-                 （TKYTEL COMMENT 15 へのアンサーソング）
+                 （TKYTEL COMMENT 12 へのアンサーソング）
 
 1. 概要
 
@@ -13,7 +13,7 @@ TKYTEL COMMENT 18
 
 2. 経緯
 
-    [TC15] を見てたら黙っていられなくなった。安全工学や労働安全の思想
+    [TC12] を見てたら黙っていられなくなった。安全工学や労働安全の思想
   を元にすると、対策を徹底できないのが人間。徹底しても忘れるのが人間。
   作業前点検を「まぁ今回はいいや～」と易きに流れるのが人間っっっ
 
@@ -45,7 +45,7 @@ TKYTEL COMMENT 18
 
 7. 参照
 
-  [TC15]: KusaReMKN, pepepper, and yude.  “NT 東京 2025 を終えて”.
-          TKYTEL COMMENT 15.  <https://tkytel.github.io/docs/15.txt>
+  [TC12]: 上羽 未栞.  “インシデント報告（はんだこてによるケーブル被覆損傷）”.
+          TKYTEL COMMENT 12.  <https://tkytel.github.io/docs/12.txt>
 
                                                                     以上
