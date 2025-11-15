@@ -45,7 +45,8 @@ TKYTEL COMMENT 18
 
 7. 参照
 
-  [TC12]: 上羽 未栞.  “インシデント報告（はんだこてによるケーブル被覆損傷）”.
-          TKYTEL COMMENT 12.  <https://tkytel.github.io/docs/12.txt>
+  [TC12]: 上羽 未栞.  “インシデント報告（はんだこてによるケーブル被覆
+          損傷）”.  TKYTEL COMMENT 12.
+          <https://tkytel.github.io/docs/12.txt>
 
                                                                     以上
