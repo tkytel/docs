@@ -3,11 +3,11 @@ TKYTEL COMMENT 20
                                     局長 市川ゆり子 <dmarc@yuriko.co.nz>
                                                               2025-11-18
 
-                         Miko PBX の名前の由来
+                         MikoPBX の名前の由来
 
 1. 概要
 
-    東京広域電話網では Miko PBX が大変人気ですが、ちょっとその名前の由
+    東京広域電話網では MikoPBX が大変人気ですが、ちょっとその名前の由
   来が気になったので調べてみた。
 
 2. 経緯
@@ -54,7 +54,7 @@ TKYTEL COMMENT 20
     - www.mikopbx.ru: MikoPBX ロシア語圏向け
     - www.mikopbx.com: MikoPBX 英語圏 / ギリシャ語圏向け（は？）
 
-  - なんか Miko PBX 自体も前身がいくつかあるようで、調べたら面白そうだ
+  - なんか MikoPBX 自体も前身がいくつかあるようで、調べたら面白そうだ
     ぞ……？ 追って報告を待てっ！
 
 7. 参照
