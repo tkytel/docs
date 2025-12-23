@@ -1,7 +1,8 @@
-TKYTEL COMMENT 22
+TKYTEL COMMENT 22 (Errata X)
                                                           東京広域電話網
                                            KusaReMKN <mkn@kusaremkn.com>
                                                               2025-12-16
+                                                              2025-12-XX
 
              Open Source Conference 2026 Osaka に参加します
 
