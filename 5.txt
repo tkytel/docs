@@ -1,13 +1,19 @@
-TKYTEL COMMENT 5
+TKYTEL COMMENT 5 (Errata 1)
                                                           東京広域電話網
                                        Tokyo Wide Area Telephony Network
                                                               2025-06-13
+                                                              2025-12-23
 
-                TKYTEL COMMENT のインデクス生成に関する
-                        テストのためのダミー文書
+                               ダミー文書
 
 1. 概要
 
     この文書で述べることはない。この文書の再配布は無制限に許可される。
+
+2. 履歴
+
+    この文書の名前は「TKYTEL COMMENT のインデクス生成に関するテストの
+  ためのダミー文書」であったが、それは長過ぎるために Errata 1 で修正さ
+  れた。
 
                                                                     以上
