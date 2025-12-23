@@ -1,16 +1,22 @@
-TKYTEL COMMENT 11 (Errata 2)
+TKYTEL COMMENT 11 (Errata 3)
                                                           東京広域電話網
                                        Tokyo Wide Area Telephony Network
                                                               2025-07-02
                                                               2025-07-02
                                                               2025-10-09
+                                                              2025-12-23
 
-          TKYTEL COMMENT が main ブランチにマージされたとき、
-     Discord に通知がきちんと送信されるかをテストのためのダミー文書
+                               ダミー文書
 
 1. 概要
 
     この文書で述べることはない。この文書の再配布は無制限に許可される。
   ダミー文書の内容がないよう。更新する内容もないよう。
+
+2. 履歴
+
+    この文書の名前は「TKYTEL COMMENT が main ブランチにマージされたと
+  き、Discord に通知がきちんと送信されるかをテストのためのダミー文書」
+  であったが、それはあまりにも長過ぎるために Errata 3 で修正された。
 
                                                                     以上
