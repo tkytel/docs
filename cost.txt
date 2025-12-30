@@ -1,6 +1,6 @@
-TKYTEL COMMENT XX
+TKYTEL COMMENT 24
                                            KusaReMKN <mkn@kusaremkn.com>
-                                                              2025-12-24
+                                                              2025-12-30
 
           電話網における経路探索のための経路コスト関数について
 
