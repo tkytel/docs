@@ -1,6 +1,6 @@
-TKYTEL COMMENT XX
+TKYTEL COMMENT 25
                                                           東京広域電話網
-                                                              2026-01-XX
+                                                              2026-01-10
 
                    Tailscale を用いた局間接続における
                  片方向通信の原因及びその解消法について
