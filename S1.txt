@@ -33,7 +33,7 @@ TKYTEL COMMENT S1
 
   - サーバ管理者による再起動等による復旧作業
 
-  - yude 氏による送信元 IP 18.180.10.83 の BAN
+  - yude 氏による送信元 IP アドレス 18.180.10.83 の BAN
 
   - 停止したサーバを参照していた他サービス yurecollect.yude.jp.eu.org
     の停止
@@ -79,7 +79,7 @@ TKYTEL COMMENT S1
 
 9. 参照
 
-  [xxxx]: サーバ側死亡時の管理者によるツイート
-          <https://discord.com/channels/1347594081869500477/1347594082326810718/1459941681481777273>
+  - サーバ側死亡時の管理者によるツイート
+    <https://x.com/KusaReMKN/status/2010382909644083605>
 
                                                                     以上
