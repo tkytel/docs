@@ -3,7 +3,7 @@ TKYTEL COMMENT XX
                                            KusaReMKN <mkn@kusaremkn.com>
                                                         yude <i@yude.jp>
                                                pepepper <i@pepepper.net>
-                                              Sgch <invalid@example.com>
+                                              Sgch <sg.sgch07@gmail.com>
 
                  GENkaigi 2026 in Shibuya に参加します
 
@@ -46,7 +46,7 @@ TKYTEL COMMENT XX
     イベントに参加するにあたって、下記の点に注意してください。
 
   - 今回のイベントにおける東京広域電話網の出展の代表者は KusaReMKN で
-    す。さらに yude、pepepper 及び sgch を加えた 4 人で対応します。
+    す。さらに yude、pepepper 及び Sgch を加えた 4 人で対応します。
 
   - 上に述べた以外のメンバは、今回のイベントにおける東京広域電話網の出
     展者ではなく、一般の参加者または別の出展の出展者です。
