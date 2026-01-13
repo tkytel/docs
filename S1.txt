@@ -13,8 +13,8 @@ TKYTEL COMMENT S1
 
     「ゆれを観測する」の WebSocket サーバに任意波形を突っ込んでイタズ
   ラしたいと思い、PoC コードを執筆 & デバッグしていたところ、1/12 0:53
-  頃 Cloudflare が攻撃と検知したようで、サービス不能状態に陥った。また
-  サーバに過大な負荷をかけた。
+  頃 WebSocket サーバの前段に居た Cloudflare が攻撃と検知したようで、
+  サービス不能状態に陥った。またサーバに過大な負荷をかけた。
 
 3. 原因
 
@@ -100,5 +100,6 @@ TKYTEL COMMENT S1
 
   - サーバ側死亡時の管理者によるツイート
     <https://x.com/KusaReMKN/status/2010382909644083605>
-
+  - [ゆれを観測する]
+    <https://unstable.kusaremkn.com/yure/>
                                                                     以上
