@@ -11,11 +11,11 @@ TKYTEL COMMENT S1
 
 2. 概要
 
-    [ゆれ](ゆれを観測するサイト)の WebSocket サーバに任意波形を突っ込んでイタズ
-  ラしたいと思い、PoC コードを執筆 & デバッグしていたところ、
-  2026-01-12 0:53 頃 WebSocket サーバの前段に居た Cloudflare が攻撃と
-  検知したようで、サービス不能状態に陥った。またサーバに過大な負荷をか
-  けた。
+    [ゆれ]（ゆれを観測するサイト）の WebSocket サーバに任意波形を突っ
+  込んでイタズラしたいと思い、PoC コードを執筆 & デバッグしていたとこ
+  ろ、2026-01-12 0:53 頃 WebSocket サーバの前段に居た Cloudflare が攻
+  撃と検知したようで、サービス不能状態に陥った。またサーバに過大な負荷
+  をかけた。
 
 3. 原因
 
@@ -24,27 +24,27 @@ TKYTEL COMMENT S1
   像以上に強力で、wait() のないビジーループを超高速で回してしまい、秒
   間数千パケット、累計数万～数十万パケットが送出された。
 
-3.1. 元凶となった PoC コード(Python)
+3.1. 元凶となった PoC コード（Python）
 
-    import time
-    import websocket
-    import json
-    import platform
+      import time
+      import websocket
+      import json
+      import platform
 
-    PLATFORM = 'python ' + platform.python_version() + ' ' + platform.release()
-    USER_AGENT = 'YURIdroid (' + PLATFORM + ')'
-    YURE_ID = 'yuri' + str(int(time.time()))[1:10]
-    websocket_url = 'wss://unstable.example.com/yure/'
-    ws = websocket.create_connection(websocket_url)
+      PLATFORM = 'python ' + platform.python_version() + ' ' + platform.release()
+      USER_AGENT = 'YURIdroid (' + PLATFORM + ')'
+      YURE_ID = 'yuri' + str(int(time.time()))[1:10]
+      websocket_url = 'wss://unstable.example.com/yure/'
+      ws = websocket.create_connection(websocket_url)
 
-    packet_count = 0
-    while True:
-      buf = []
-      for i in range(30):
-        buf.append({'t': int(time.time() * 1000), 'userAgent': USER_AGENT, 'yureId': YURE_ID, 'x': 0.1, 'y': 0.2, 'z': 0.3})
-      ws.send(json.dumps(buf))
-      packet_count = packet_count + 1
-      print(str(packet_count))
+      packet_count = 0
+      while True:
+        buf = []
+        for i in range(30):
+          buf.append({'t': int(time.time() * 1000), 'userAgent': USER_AGENT, 'yureId': YURE_ID, 'x': 0.1, 'y': 0.2, 'z': 0.3})
+        ws.send(json.dumps(buf))
+        packet_count = packet_count + 1
+        print(str(packet_count))
 
 4. 発生した被害
 
@@ -69,7 +69,7 @@ TKYTEL COMMENT S1
 
 5. 処置
 
-  - 始末書(本書)の提出
+  - 始末書（本書）の提出
 
   - 関係各所への詫び石配布（ぉ
 
@@ -103,6 +103,6 @@ TKYTEL COMMENT S1
   - サーバ側死亡時の管理者によるツイート
     <https://x.com/KusaReMKN/status/2010382909644083605>
 
-  - [ゆれ]
+  - ゆれ
     <https://unstable.kusaremkn.com/yure/>
                                                                     以上
