@@ -24,9 +24,7 @@ TKYTEL COMMENT S1
   像以上に強力で、wait() のないビジーループを超高速で回してしまい、秒
   間数千パケット、累計数万～数十万パケットが送出された。
 
-3.1. すべての元凶
-
-    元凶となった PoC コード
+3.1. 元凶となった PoC コード(Python)
 
     import time
     import websocket
