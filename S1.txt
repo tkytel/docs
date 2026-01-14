@@ -54,7 +54,7 @@ TKYTEL COMMENT S1
 
   - サーバ管理者による再起動等による復旧作業
 
-  - IP アドレスガチャを回して手に入れた送信元 ElasticIP アドレス の被
+  - IP アドレスガチャを回して手に入れた送信元 Elastic IP アドレス の被
     BAN（yude 氏による）
 
   - 停止したサーバを参照していた他サービス yurecollect.yude.jp.eu.org
