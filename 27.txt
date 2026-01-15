@@ -1,7 +1,7 @@
-TKYTEL COMMENT S1
+TKYTEL COMMENT 27
                                                             百合子設計局
                                     局長 市川ゆり子 <dmarc@yuriko.co.nz>
-                                                              2026-01-12
+                                                              2026-01-15
 
                                  始末書
               （MKN 局の WebSocket サーバを破壊しました）
