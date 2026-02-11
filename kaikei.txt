@@ -67,7 +67,7 @@ TKYTEL COMMENT XX
     ヤマト運輸 羽田クロノゲートベース
     ヤマト運輸 松江津田
     MiKEN MiKANET
-    XXX 円
+    1 個    1,480 円
 
   - 合計
     XXX 円
