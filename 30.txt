@@ -1,6 +1,6 @@
-TKYTEL COMMENT XX
+TKYTEL COMMENT 30
                                                           東京広域電話網
-                                                              2025-09-XX
+                                                              2026-02-12
 
           GitHub の issue 及び pull request の運用方法について
 
