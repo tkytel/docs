@@ -58,10 +58,12 @@ TKYTEL COMMENT XX
 
 7. 付録
 
-    実験中の NMEA データを [5] で配布しています。
+    実験中の NMEA データを [5] で配布しています。また、このデータを元
+  にした GPX データを百合子設計局 局長 市川ゆり子氏から提供いただきま
+  したので、これを [6] で配布しています。
 
     対岸で喰らう “まるごとソーセージ（春のパンまつり 2026 における点数
-  1.5 点）” [6] は、ほどほどに美味しくありました。
+  1.5 点）” [7] は、ほどほどに美味しくありました。
 
     燃料の消費について、宍道湖一周でちょうどタンク一杯を消費する程度で
   あることがわかりました。予備の燃料があると安心感があります。
@@ -82,7 +84,9 @@ TKYTEL COMMENT XX
 
   [5]:  <https://unstable.kusaremkn.com/temp/preshinji.nmea.txt>
 
-  [6]:  山崎製パン, BRAND PAGE［まるごとソーセージ］,
+  [6]:  <https://unstable.kusaremkn.com/temp/preshinji.gpx>
+
+  [7]:  山崎製パン, BRAND PAGE［まるごとソーセージ］,
         <https://www.yamazakipan.co.jp/brand/maru_sau/>
 
                                                                     以上
