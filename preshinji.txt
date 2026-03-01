@@ -53,8 +53,10 @@ TKYTEL COMMENT XX
 
 6. 付録
 
+    実験中の NMEA データを [5] で配布しています。
+
     対岸で喰らう “まるごとソーセージ（春のパンまつり 2026 における点数
-  1.5 点）” [5] は、ほどほどに美味しくありました。
+  1.5 点）” [6] は、ほどほどに美味しくありました。
 
     燃料の消費について、宍道湖一周でちょうどタンク一杯を消費する程度で
   あることがわかりました。予備の燃料があると安心感があります。
@@ -73,7 +75,9 @@ TKYTEL COMMENT XX
         “着いた！”, Twitter,
         <https://x.com/KusaReMKN/status/2027756894392357344>
 
-  [5]:  山崎製パン, BRAND PAGE［まるごとソーセージ］,
+  [5]:  <https://unstable.kusaremkn.com/temp/preshinji.nmea.txt>
+
+  [6]:  山崎製パン, BRAND PAGE［まるごとソーセージ］,
         <https://www.yamazakipan.co.jp/brand/maru_sau/>
 
                                                                     以上
