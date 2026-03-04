@@ -1,0 +1,28 @@
+TKYTEL COMMENT XX
+                                           KusaReMKN <mkn@kusaremkn.com>
+                                                              2026-03-XX
+
+                        MikaNeTEL が死亡しました
+
+1. 概要
+
+    MikaNeTEL（別名 mikopie）を収容していたコンピュータ（以下、dekopon
+  とする）の SSD が破損し、MikaNeTEL を含むコンテナ及びデータを喪失し
+  ました。
+
+2. 事態の発覚まで
+
+    mikopie を収容している dekopon には Proxmox 8 系のシステムを利用し
+  ていました。今般、MiKEN MiKANET の再編に伴い、dekopon において利用す
+  るシステムを Proxmox 9 系に以降するため、mikopie の移転を検討してい
+  ました。mikopie の稼動時間を確認するため、uptime コマンドを実行した
+  ところ、I/O Error である旨が表示されました。不審に思い、dekopon につ
+  いて dmesg を確認してみると、LVM に関して大量のエラー出力を発見しま
+  した。状態が深刻であることを確認し、再起動を試みたものの、mikopie も
+  dekopon も再び起動することはありませんでした。
+
+X. おわりに
+
+    東京広域電話網と MikaNeTEL とは、網の発足から約 1.5 年間を共に歩み
+  ました。今日までこき使われ続けたコンピュータに対し、謝意を敬意を表す
+  るとともに、このタイミングで破損したことを心より恨み申し上げます。
