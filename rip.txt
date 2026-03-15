@@ -38,6 +38,10 @@ TKYTEL COMMENT XX
   を再開しています。なお、MiKEN MiKANET において、MikaNeTEL と併設され
   ていた MikaNeTELab は、この不具合を受け、廃局となります。
 
+    今回の不具合及び復旧作業を受け、MikoPBX に関連する各種の情報は、ホ
+  スト環境の /var/spool/mikopbx 配下にのみ存在することが明らかになりま
+  した。
+
 2. 事態の発覚まで
 
     mikopie を収容している dekopon には、Proxmox 8 系のシステムを利用
@@ -281,9 +285,32 @@ TKYTEL COMMENT XX
 
   6.  tailscale up します。
 
-3.7. おわり
+3.7. MikoPBX の復旧について
 
-    処置はおわりです。
+    MikoPBX を復旧するにあたって、環境をより安定させるため、追加で以下
+  の操作を行いました。
+
+  1.  行儀よく、新しい MikoPBX を新設します。ただし、正規の手順と比較
+      して、次の点を除きます。これらは、おそらくホスト側とコンテナ側の
+      ユーザ ID 及びグループ ID を対応づけようとしているものと思われま
+      すが、正しく機能していません。
+
+    - ユーザ www-user を作成しません。
+
+    - compose.yaml のうち、services.mikopbx.environment について、以下
+      のように修正します。
+
+      - ID_WWW_USER = 1011
+      - ID_WWW_GROUP = 1000
+
+  2.  バックアップされた /var/spool/mikopbx を新しい MikoPBX に rsync
+      します。ファイルオーナの情報が相応しくない場合、bash から次のコ
+      マンドを実行します。
+
+          $ chown -R 1011:1000 /var/spool/mikopbx/{cf,storage}
+
+  3.  docker compose up すると、MikoPBX はバックアップ元の状態をほぼ取
+      り戻します。
 
 4. 時系列
 
