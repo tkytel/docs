@@ -1,0 +1,409 @@
+TKYTEL COMMENT XX
+                                           KusaReMKN <mkn@kusaremkn.com>
+                                                              2026-03-XX
+
+               MikaNeTEL において発生した障害に関する報告
+                     （MikaNeTELab 廃局のお知らせ）
+
+1. 概要
+
+    MikaNeTEL は、遅くとも 2026 年 3 月 4 日の夕刻ごろから約 100 時間
+  以上にわたって不通状態にありました。これは MikaNeTEL のサービスを提
+  供するコンテナ mikopie（以下、単に mikopie とする）を収容していたコ
+  ンピュータ dekopon（以下、単に dekopon とする）の記憶装置に不具合が
+  発生したことに由来します。
+
+    MikaNeTEL は、2026 年 3 月 15 日時点で完全に復旧し、正常なサービス
+  を再開しています。なお、MiKEN MiKANET において、MikaNeTEL と併設され
+  ていた MikaNeTELab は、この不具合を受け、廃局となります。
+
+    今回の不具合及び復旧作業を受け、MikoPBX に関連する各種の情報は、ホ
+  スト環境の /var/spool/mikopbx 配下にのみ存在することが明らかになりま
+  した。
+
+2. 事態の発覚まで
+
+    mikopie を収容している dekopon には、Proxmox 8 系のシステムを利用
+  していました。今般、MiKEN MiKANET を再編することとなり、dekopon にお
+  いて利用するシステムを Proxmox 9 系に移行するため、mikopie の移転を
+  検討していました [1]。
+
+    移転に先立って mikopie の稼働時間を確認するため、uptime コマンドを
+  実行したところ I/O Error である旨が表示され [2]、dmesg には LVM に関
+  して大量のエラーが出力されていることを発見しました。事態が深刻である
+  ことを受け、最後の望みを掛けて再起動を試みたものの、mikopie も
+  dekopon も再び正しく起動することはありませんでした。
+
+    dekopon を再起動したところ、GNU GRUB が起動しましたので、ここで ls
+  コマンドを実行したところ次のエラー出力を得ました。先の I/O Error で
+  ある旨のメッセージを踏まえ、dekopon の記憶領域に何らかのエラーが発生
+  していることに疑いの余地は無くなりました。
+
+      error: failure reading sector 0x200840 from `hd0'.
+
+3. 操作
+
+3.0. 直接寄与しなかった操作
+
+    不具合の発生している記憶装置は、記憶容量 1 TB の NVMe SSD であり、
+  mikopie を含むコンテナに関するデータの記憶されているパーティションの
+  サイズは 953 GB です。元の記憶装置からデータをサルベージするため、別
+  の記憶装置へデータを転送する必要があります。転送先の記憶装置は、少な
+  くとも 953 GB 以上の記憶容量が必要となります。
+
+3.0.1. HDD への退避（中止）
+
+    転送先の記憶装置の候補として、MiKEN において未使用のまま放置されて
+  いた中古の HDD がありましたから、これを利用するため、yude 氏に提案さ
+  れた通り、以下の操作を行いました。なお、これらの操作を行うために
+  Ubuntu 24.04.4 の Live 環境を利用しています。
+
+  1.  転送先の HDD（ここでは /dev/sdb とします）に新たなパーティション
+      を作成します。
+
+          $ sudo fdisk /dev/sdb
+          n
+          (SNIP)
+          w
+
+  2.  念の為、パーティションが作成されていることを確認します。
+
+          $ sudo fdisk -l /dev/sdb
+
+  3.  ファイルシステムを作成し、それを /mnt にマウントします。
+
+          $ sudo mkfs.ext4 /dev/sdb1
+          $ sudo mount /dev/sdb1 /mnt
+
+  4.  ddrescue コマンド（gddrescue パッケージ）を利用して、転送元のパ
+      ーティション（ここでは /dev/nvme0n1p3）のデータを読み出します。
+
+          $ sudo ddrescue -n --idirect /dev/nvme0n1p3 \
+              /mnt/broken-lvm.bin /mnt/mapfile
+
+    しかし、4. の操作の途中において /dev/sdb1 への書き込みエラーが発生
+  したことを受け、操作を中止しました。
+
+3.0.2. NFS への退避（中止）
+
+    この時点では、他の利用できる記憶装置に思い当たるところがありません
+  でしたから、NFS を利用して yude 氏による記憶領域を間借りすることとし
+  ました。なお、間借りにあたって、MiKEN MiKANET 内に存在する “yude.jp
+  島根支店” であるところの ruby.local.kusaremkn.com を中継し、その上で
+  yude 氏による記憶領域 hnd1sh1.tun.y2e.org へインターネット越しにアク
+  セスしました。
+
+  1.  NFS を利用するために nfs-common パッケージをインストールし、NFS
+      上のディレクトリをマウントします。
+
+          $ sudo mkdir /mnt/rescuemkn
+          $ sudo mount -t nfs \
+              ruby.local.kusaremkn.com:/mnt/rescuemkn /mnt/rescuemkn
+
+  2.  このディレクトリを宛先として、ddrescue コマンドを実行します。
+
+          $ sudo ddrescue -n --idirect /dev/nvme0n1p3 \
+              /mnt/rescuemkn/broken-lvm.bin /mnt/rescuemkn/mapfile
+
+    しかし、この操作中に iperf3 を用いたスループットの計測を行ったとこ
+  ろ、単純計算でも 10 日程度を要することが明らかになりました。これを受
+  け、操作を中止しました。
+
+3.1. データのサルベージ
+
+    MiKEN MiKANET に接続されているコンピュータ iyokan には合計 3.7 TB
+  程度の記憶領域が接続されています。このうち約 2 TB は単一の記憶装置で
+  あり、かつ、その使用率は 40 % 程度であったことを思い出し、この領域に
+  データをサルベージできることに気が付きました。これを受け、NFS を利用
+  して iyokan の記憶領域に転送しました。
+
+  1.  iyokan に NFS をインストールします。
+
+          $ sudo apt install nfs-kernel-server
+
+  2.  /etc/exports に設定を記述します。
+
+          $ sudo ed /etc/exports
+          $a
+          /data 172.20.0.0/16(rw,sync,no_root_squash,no_subtree_check)
+          .
+          w
+          q
+
+  3.  設定を反映します。
+
+          $ sudo exportfs -ar
+
+  4.  サルベージ元のコンピュータにおいて、NFS 上のディレクトリをマウン
+      トします。
+
+          $ sudo mkdir /mnt/hoge
+          $ sudo mount -t nfs \
+              iyokan.local.kusaremkn.com:/data /mnt/hoge
+
+  5.  サルベージ先のディレクトリを用意し、そのディレクトリを宛先として
+      ddrescue コマンドを実行します。
+
+          $ sudo mkdir /mnt/hoge/fuck
+          $ sudo ddrescue -n --idirect /dev/nvme0n1p3 \
+              /mnt/hoge/fuck/broken-lvm.bin /mnt/hoge/fuck/mapfile
+
+3.2. サルベージされたデータへのアクセス
+
+    次の通りコマンドを実行して、サルベージされたデータにアクセスできる
+  ことを確認しました。
+
+  1.  サルベージされたデータを loop back device に接続します。
+
+          $ sudo losetup -Pf /data/fuck/broken-lvm.bin
+
+  2.  pvscan コマンド（lvm2 パッケージ）を利用して、LVM の物理ボリュー
+      ムを認識させます。
+
+          $ sudo pvscan
+            PV /dev/loop25   VG pve             lvm2 [<952.87 GiB / 16.00 GiB free]
+            Total: 1 [<952.87 GiB] / in use: 1 [<952.87 GiB] / in no VG: 0 [0   ]
+
+  3.  ボリュームグループを認識させ、有効にします。
+
+          $ sudo vgscan
+            Found volume group "pve" using metadata type lvm2
+          $ sudo vgchange -ay
+            Check of pool pve/data failed (status:1). Manual repair required!
+            2 logical volume(s) in volume group "pve" now active
+
+  4.  この時点で、/dev/pve の配下にいくつかの論理ボリュームを見付けら
+      れます。
+
+          $ ls /dev/pve
+
+    しかし、この時点では各種のコンテナに関連するボリュームにアクセスで
+  きませんでした。
+
+3.3. サルベージされたデータの修復
+
+    LVM の一部の領域を手動で修復する必要があると言われていますから、こ
+  れを行います。
+
+  0.  ボリュームをマウントしている場合、アンマウントしておきます。
+
+  1.  lvconvert コマンドを使い、修復を試みます。
+
+          $ sudo lvconvert --repair pve/data
+            WARNING: LV pve/data_meta0 holds a backup of the unrepaired metadata. Use lvremove when no longer required.
+
+  2.  /dev/pve の配下に論理ボリュームを見付けられます。
+
+3.4. サルベージされたデータの圧縮
+
+    復元のために必要な手順ではありませんが、保存のためにデータを圧縮し
+  ておきます。次のように実行します。ただし、/mnt/temp は別の記憶領域の
+  マウントポイントです。圧縮されたデータは 33.7 GB 程度になりました。
+
+      $ zstdmt -c -22 --ultra broken-lvm.bin \
+          >/mnt/temp/broken-lvm.bin.zst
+
+3.5. SSD の検査
+
+    不具合の発生した SSD が恒久的に破壊されているのか否かを確かめるた
+  め、badblocks コマンドを用いて検査を行いました。検査の結果、異常は見
+  当りませんでした。
+
+      $ sudo badblocks -wsv /dev/nvme0n1
+
+    しかし、ディスクアクセス時に大きな遅延が発生するため、この時点で
+  SSD の交換を計画しました。
+
+3.6. サルベージされたデータからの復旧
+
+    復旧に必要なデータは、以下のディレクトリに配置されています。
+
+    - /var/lib/docker     .   .   .   .   Docker に関連するデータ
+    - /var/spool/mikopbx  .   .   .   .   MikoPBX に関連するデータ
+    - /var/lib/tailscale  .   .   .   .   Tailscale に関連するデータ
+
+    次の手順によって、これらを新しいコンテナに再配置します。
+
+  0.  新しい Proxmox をインストールし、Debian 系の新しいコンテナを用意
+      しておきます。
+
+    以下の操作は送り側（サルベージされたデータにアクセスできるコンピュ
+  ータ）の上で行います。
+
+  1.  サルベージしたボリューム（ここでは vm-106-disk-0 とします）をマ
+      ウントします。
+
+          $ sudo mount /dev/pve/vm-106-disk-0 /mnt
+
+  2.  必要なデータを再配置します。rsync（rsync パッケージ）を用いると
+      便利ですから、これを利用します。受け側にも rsync のインストール
+      が必要です。SSH の公開鍵を指定するために -e オプションを用いま
+      す。なお、送り先を 172.20.200.6 とします。
+
+          # cd /var/lib/
+          # rsync -e "ssh -i ~mkn/.ssh/id_pubMikan" -av docker \
+              root@172.20.200.6:/var/lib/.
+          # cd /var/spool/
+          # rsync -e "ssh -i ~mkn/.ssh/id_pubMikan" -av mikopbx \
+              root@172.20.200.6:/var/lib/.
+          # cd /var/lib/
+          # rsync -e "ssh -i ~mkn/.ssh/id_pubMikan" -av tailscale \
+              root@172.20.200.6:/var/lib/.
+
+    以下の操作は受け側（新しいコンテナ）の上で行います。
+
+  3.  受け側で docker や tailscale をインストールします。
+
+  4.  受け側で既存の Docker コンテナを閉じます。ここで、引数にはコンテ
+      ナの ID を指定します。
+
+          # docker kill 472fea00b0df9755246017be02e0816b5cdce26362826768a94e562d0786fa7f
+          # docker rm 472fea00b0df9755246017be02e0816b5cdce26362826768a94e562d0786fa7f
+
+  5.  MikoPBX の compose.yaml を記述して、docker compose up します。
+
+  6.  tailscale up します。
+
+3.7. MikoPBX の復旧について
+
+    MikoPBX を復旧するにあたって、環境をより安定させるため、追加で以下
+  の操作を行いました。
+
+  1.  行儀よく、新しい MikoPBX を新設します。ただし、正規の手順と比較
+      して、次の点を除きます。これらは、おそらくホスト側とコンテナ側の
+      ユーザ ID 及びグループ ID を対応づけようとしているものと思われま
+      すが、正しく機能していません。
+
+    - ユーザ www-user を作成しません。
+
+    - compose.yaml のうち、services.mikopbx.environment について、以下
+      のように修正します。
+
+      - ID_WWW_USER = 1011
+      - ID_WWW_GROUP = 1000
+
+  2.  バックアップされた /var/spool/mikopbx を新しい MikoPBX に rsync
+      します。ファイルオーナの情報が相応しくない場合、bash から次のコ
+      マンドを実行します。
+
+          $ chown -R 1011:1000 /var/spool/mikopbx/{cf,storage}
+
+  3.  docker compose up すると、MikoPBX はバックアップ元の状態をほぼ取
+      り戻します。
+
+4. 時系列
+
+  - 2026-03-04 21:38 ごろ
+    障害発覚。mikopie 及び dekopon が再起動不能となる。
+
+  - 2026-03-04 22:27 ごろ
+    HDD へのサルベージを試みる。のち、エラーとなる。
+
+  - 2026-03-05 00:19 ごろ
+    NFS へのサルベージを試みる。
+
+  - 2026-03-05 08:31 ごろ
+    この時点での転送量は 100 GB 程度である。
+
+  - 2026-03-05 18:00 ごろ
+    外の人の飲み会開始。
+
+  - 2026-03-05 19:21 ごろ
+    単純計算で 10 日程度を要することが試算される。
+
+  - 2026-03-05 20:35 ごろ
+    外の人の飲み会終了。寒空の下、帰宅を開始。
+
+  - 2026-03-05 21:39 ごろ
+    iyokan に空き容量があることを思い出す。NFS へのサルベージを中止
+    し、iyokan へのサルベージに切り替える。
+
+  - 2026-03-05 21:58 ごろ
+    ギガビットイーサネットの遅さに気付く。
+
+  - 2026-03-06 06:52 ごろ
+    起床と同時にサルベージの完了を確認する。
+
+  - 2026-03-06 07:30 ごろ
+    サルベージされたデータから一部のボリュームを読み出せることを確認。
+
+  - 2026-03-06 07:50 ごろ
+    サルベージされたデータを修復し、全てのボリュームを読み出せることを
+    確認。
+
+  - 2026-03-06 18:30 ごろ
+    作業を再開。
+
+  - 2026-03-06 21:12 ごろ
+    頭と体とが疲れ切っていて支離滅裂なことしかしないので早期に就寝。
+
+  - 2026-03-07 09:50 ごろ
+    試験用コンテナにデータを転送し、MikaNeTEL を復元できることを確認。
+
+  - 2026-03-07 11:58 ごろ
+    試験用コンテナ内で MikaNeTEL のサービスを再開できることを確認。
+
+  - 2026-03-07 12:15 ごろ
+    ピザパーティー開始。けものフレンズを全話見通す。
+
+  - 2026-03-07 21:20 ごろ
+    本復旧に向け、SSD のテストを開始。
+
+  - 2026-03-08 13:14 ごろ
+    SSD のテスト終了。基盤環境構築開始。
+
+  - 2026-03-08 14:38 ごろ
+    復旧完了。
+
+  - 2026-03-08 18:00 ごろ
+    サービス再開。
+
+  - 2026-03-15 17:37 ごろ
+    完全復旧。
+
+5. 対策
+
+    不慮の事故を防ぐことはできません。しかし、事故からの復旧を迅速に行
+  うための備えを行うことはできます。mikopie は、これを稼動して以来、一
+  度もバックアップされていませんでした。これは、mikopie が飽くまでも趣
+  味によって設置された PBX であったことによります。mikopie の接続され
+  た網が大きくなるにつれ、この PBX の立ち位置は大きなものとなっていま
+  したが、運用の方針に変わりはありませんでした。今後、定期的なバックア
+  ップを行うことを計画しています。
+
+    また、mikopie の稼動状況を監視できていなかったことにより、事故の発
+  生からそれに気付くまでの時間を大幅に遅らせました。今後、死活監視を行
+  う仕組みを導入することを計画しています。
+
+    いづれの対策についても、充分に検討したのちに別の文書で改めて報告す
+  ることとします。
+
+6. MikaNeTELab の廃局について
+
+    MiKEN MikaNET において MikaNeTEL に併設され、そのまま放置されてい
+  た MikaNeTELab は、今回の障害を受けて廃局となります。これは、復旧の
+  ための労力とそれによる恩恵とを推し量ったときに、利のないことが明確で
+  あったことによります。
+
+7. おわりに
+
+    東京広域電話網と mikopie とは、網の発足からの約 1.5 年間を共に歩み
+  ました。今日までこき使われ続けたコンテナ及びコンピュータに対し、謝意
+  と敬意を表するとともに、このタイミングで不具合を発生させたことを心よ
+  り恨み申し上げます。
+
+    また、遠隔地から報告される断片的な情報をもとに、辛抱強く復旧の支援
+  及び監修をしてくれた yude 氏に心から厚く御礼申し上げます。
+
+    それはそれとして、東京広域電話網は飽くまでも趣味人による電話網です
+  から、そのサービス品質に保証がないことを忘れてはなりません。中央集権
+  的でない構成を徹底しようとする考え方は、無責任で不安定な運用を穏やか
+  に応援します。
+
+8. 参考
+
+  [1]:  <https://x.com/KusaReMKN/status/2029171095845339263>
+
+  [2]:  <https://x.com/yude_jp/status/2029187667246932246>
+
+                                                                    以上
