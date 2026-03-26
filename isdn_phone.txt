@@ -49,7 +49,7 @@ TKYTEL COMMENT XX
 
                       HPE ProLiant TM200 (FreePBX)
                                    |
-                            (ethernet cable)
+                            (Ethernet cable)
                                    |
                              ALEXON VIA300
                                    |
