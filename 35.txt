@@ -1,0 +1,286 @@
+TKYTEL COMMENT 35
+                                             M. Uwaba (a.k.a. KusaReMKN)
+                                                S. Isshiki (a.k.a. yude)
+                                              M. Saeki (a.k.a. nejikugi)
+                                       Tokyo Wide Area Telephony Network
+                                                              2026-04-01
+
+  A Standard for the Transmission of IP Datagrams over Postal Carriers
+
+このメモについて
+
+    このメモは 2026 年の April Fools' Day RFC として投稿したものの、不
+  運にも採録されなかった「郵便による IP データグラムの伝送規格」の原文
+  を再構成して公開するものです。
+
+Abstract
+
+   This document describes an experimental method for the transmission
+   of IP datagrams using postal services.  This specification enables IP
+   communication in constrained environments where conventional
+   telecommunication media are unavailable.
+
+Table of Contents
+
+   1.  Introduction
+   2.  Requirements Language
+   3.  Specification
+     3.1.  Procedure
+     3.2.  Frame Format
+     3.3.  Quality of Service
+   4.  IANA Considerations
+   5.  Internationalization Considerations
+   6.  Security Considerations
+   7.  References
+     7.1.  Normative References
+     7.2.  Informative References
+   Appendix A.  Example of the Represented Datagram
+   Acknowledgements
+   Authors' Addresses
+
+1.  Introduction
+
+   Postal delivery services have long been deployed on a global scale.
+   Similarly, the Internet Protocol (IP) operates over diverse physical
+   carriers and supports worldwide communication.  Even in environments
+   so constrained that conventional telecommunication media (e.g., metal
+   cable, optical fiber, radio wave, etc.) are unavailable, data
+   transmission remains feasible using only paper and pen.  In this
+   context, using postal services as a carrier for IP datagrams is a
+   reasonable approach.
+
+   Generally, postal carriers experience noticeably more delays than
+   other carriers, typically measured in days or weeks.  However, the
+   sender can flexibly configure Quality of Service (QoS) by selecting
+   service classes such as express mail and priority mail.  Furthermore,
+   high throughput can be achieved by aggregating multiple datagrams
+   into a single envelope or by employing larger datagram sizes,
+   analogous to Ethernet jumbo frames [JUMBO] or IPv6 jumbograms
+   [RFC2675].  An additional advantage is the ease of implementation, as
+   no special equipment is required to transport letters.
+
+2.  Requirements Language
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in BCP
+   14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+3.  Specification
+
+3.1.  Procedure
+
+   The sender MUST perform the following steps:
+
+   1.  The sender generates one or more datagrams.
+
+   2.  The sender prints the datagrams on letter paper.
+
+   3.  The sender places the letter paper into an envelope and affixes
+       the required amount of postage.  Multiple sheets of letter paper
+       MAY be placed in a single envelope, which can be more economical
+       in terms of processing multiple datagrams.
+
+   4.  The sender deposits the envelope into a postbox or delivers it to
+       a post office.
+
+   The receiver MUST perform the following steps:
+
+   1.  The receiver MAY check their physical mailbox as part of a daily
+       routine.  If the receiver does not check the mailbox on a given
+       day, any datagrams arriving on that day are considered to have
+       arrived late.
+
+   2.  The receiver extracts the letter paper from the envelope and
+       parses the printed datagrams.
+
+   3.  The receiver processes the datagrams on a computer.
+
+3.2.  Frame Format
+
+   This specification does not specify a format for expressing
+   datagrams.  The format SHOULD be specified in a human-readable form
+   on the letter paper, in an area not occupied by the datagram itself.
+   Base64 [RFC4648] is a suitable representation method for transmission
+   of datagrams by non-electronic means.  Furthermore, making effective
+   use of the letter paper surface and employing QR codes [ISOIEC18004]
+   enhances fault tolerance while enabling mechanical printing and
+   reading.  Printing datagrams in hexadecimal on small scrolls of paper
+   MAY also enable compatibility with IP transmission using avian
+   carriers [RFC1149].
+
+   Since datagram carriers are not avian, neither the sender nor the
+   receiver need worry about any decrease in datagram transmission
+   efficiency caused by the removal of headers.  The sender MAY include
+   the protocol of the datagram contained within the letter paper in a
+   human-readable form.  Furthermore, if the datagram contains elements
+   such as an EtherType, OSI link layer, or SNAP header [RFC1042], the
+   presence of such elements MAY be indicated in a human-readable form.
+   This enables encapsulation not only of IPv4 and IPv6, but also
+   arbitrary other protocols.
+
+3.3.  Quality of Service
+
+   Maximum transmission unit (MTU) is subject to restrictions imposed by
+   postal services used, the pricing plan, and the printing format.
+   Multiple datagrams MAY be placed in a single envelope.  The sender or
+   the receiver MAY select an appropriate service level to balance cost
+   and performance.  If a low round trip time (RTT) is required,
+   optional services such as express delivery MAY be used at additional
+   cost.
+
+4.  IANA Considerations
+
+   This document does not require any IANA actions.  Postal route
+   assignments are managed by the appropriate postal authorities.
+
+   If methods for tunneling letter paper over Ethernet, IP, or other
+   transport subsystems are defined in the future, appropriate EtherType
+   values, IP Protocol Numbers, or Media Types will require registration
+   with IANA.
+
+5.  Internationalization Considerations
+
+   By using international postal services, datagrams can be transmitted
+   to a wide geographic area.
+
+   When international mail is used, the address written on the envelope
+   SHOULD be expressed in French, English, or the language of the
+   destination.  There are no language restrictions on the contents
+   written on the enclosed letter paper.  However, when communication
+   occurs between parties using different languages, the use of a
+   language that has not been agreed upon in advance might result in the
+   recipient being unable to understand or interpret the transmitted
+   datagram.
+
+   In communications that traverse regional boundaries, quarantine
+   procedures MAY be required.  However, such procedures do not provide
+   any assurance of the authenticity of the datagram.
+
+6.  Security Considerations
+
+   When paper becomes wet, the ink may bleed, and the document may
+   become unreadable.  This can result in the loss or corruption of
+   datagrams.  Proper handling by postal carriers is assumed but cannot
+   be guaranteed.
+
+   Not all regions provide identical postal services.  To prevent man-
+   in-the-middle attacks, such as eavesdropping or tampering with
+   datagrams, the envelopes SHOULD be properly sealed.  The use of
+   properly applied sealing wax is RECOMMENDED, as it provides both
+   tamper evidence and a measure of aesthetic value.  If sealing wax
+   alone is considered insufficient, additional measures MAY be
+   employed, including encrypting the datagram content or the use of
+   invisible ink.
+
+   The receiver should also be aware that information may leak from the
+   letter paper after it has been read.  Secure destruction of used
+   paper MAY be required in environments where confidentiality is
+   crucial.  Appropriate methods include burning and chemical erasure.
+
+7.  References
+
+7.1.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/info/rfc8174>.
+
+7.2.  Informative References
+
+   [RFC1042]  Postel, J. and J. Reynolds, "Standard for the transmission
+              of IP datagrams over IEEE 802 networks", STD 43, RFC 1042,
+              DOI 10.17487/RFC1042, February 1988,
+              <https://www.rfc-editor.org/info/rfc1042>.
+
+   [RFC1149]  Waitzman, D., "Standard for the transmission of IP
+              datagrams on avian carriers", RFC 1149,
+              DOI 10.17487/RFC1149, April 1990,
+              <https://www.rfc-editor.org/info/rfc1149>.
+
+   [RFC2675]  Borman, D., Deering, S., and R. Hinden, "IPv6 Jumbograms",
+              RFC 2675, DOI 10.17487/RFC2675, August 1999,
+              <https://www.rfc-editor.org/info/rfc2675>.
+
+   [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
+              Encodings", RFC 4648, DOI 10.17487/RFC4648, October 2006,
+              <https://www.rfc-editor.org/info/rfc4648>.
+
+   [JUMBO]    Ethernet Alliance, "Ethernet Jumbo Frames", November 2009,
+              <https://ethernetalliance.org/wp-content/uploads/2011/10/
+              EA-Ethernet-Jumbo-Frames-v0-1.pdf>.
+
+   [ISOIEC18004]
+              ISO/IEC, "Information technology - Automatic
+              identification and data capture techniques - QR Code bar
+              code symbology specification", ISO/IEC 18004:2024, August
+              2024.
+
+Appendix A.  Example of the Represented Datagram
+
+   Figure 1 shows an example of the represented datagram.  It does not
+   prescribe or restrict the specific language, format, or
+   representation of datagrams on letter paper.
+
+   +-----------------------------------------------------------------+
+   | Dear Sumire Isshiki,                                            |
+   |                                                                 |
+   | Thank you very much for your continued attention.               |
+   |                                                                 |
+   | Enclosed below is an ICMP packet, provided in hexadecimal form. |
+   | I would appreciate your kind acknowledgment upon receipt.       |
+   |                                                                 |
+   |            4500 0054 da14 4000 4001 740f c633 6418              |
+   |            c000 0239 0800 72a0 947c 0001 4d4f 7769              |
+   |            0000 0000 6556 0800 0000 0000 1011 1213              |
+   |            1415 1617 1819 1a1b 1c1d 1e1f 2021 2223              |
+   |            2425 2627 2829 2a2b 2c2d 2e2f 3031 3233              |
+   |            3435 3637                                            |
+   |                                                                 |
+   | With news of flowers beginning to bloom,                        |
+   | I hope this letter finds you well.                              |
+   |                                                                 |
+   | Sincerely,                                                      |
+   | April 1, 2026                                                   |
+   |                                                                 |
+   | Mikan Uwaba                                                     |
+   +-----------------------------------------------------------------+
+
+               Figure 1: Example of the represented datagram
+
+Acknowledgements
+
+   Special thanks go to "Engineer Meetup" (hosted by Yuni Shinogami) and
+   "Computer Science Shukai" (hosted by Yona Yonabe), held on VRChat,
+   for providing a venue and an opportunity to discuss this
+   specification.
+
+   Sincere appreciation is extended to Sgch for providing technical
+   documents during the writing of this specification, to Mai Shinano
+   for the core idea and related experiments, and to Yuriko Ichikawa for
+   insightful comments.
+
+Authors' Addresses
+
+   Mikan UWABA (a.k.a. KusaReMKN)
+   Tokyo Wide Area Telephony Network
+   Email: mkn@kusaremkn.com
+   URI:   https://kusaremkn.com/
+
+
+   Sumire ISSHIKI (a.k.a. yude)
+   Tokyo Wide Area Telephony Network
+   Email: i@yude.jp
+   URI:   https://www.yude.jp/
+
+
+   Mahiro SAEKI (a.k.a. nejikugi)
+   Tokyo Wide Area Telephony Network
+   Email: me@scrwnl.eu.org
+   URI:   https://www.scrwnl.eu.org/
