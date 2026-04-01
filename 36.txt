@@ -1,6 +1,6 @@
-TKYTEL COMMENT XX
+TKYTEL COMMENT 36
                                            KusaReMKN <mkn@kusaremkn.com>
-                                                              2026-04-XX
+                                                              2026-04-02
 
                  IP over Private LoRa に関する検討以前
 
