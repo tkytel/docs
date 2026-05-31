@@ -9,8 +9,8 @@ TKYTEL COMMENT XX
 1. はじめに
 
     東京広域電話網は、2026 年 7 月 18 日（土曜日）に下記の通り開催され
-  る「第 11 回 Fediverse Linux Users Group 勉強会」に参加し、展示、発表
-  を行う予定です。
+  る「第 11 回 Fediverse Linux Users Group 勉強会」に参加し、展示、発
+  表を行う予定です。
 
   イベント名  第 11 回 Fediverse Linux Users Group 勉強会
               <https://fedilug.connpass.com/event/395333/>
