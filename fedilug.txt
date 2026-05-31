@@ -1,7 +1,7 @@
 TKYTEL COMMENT XX
                                                           東京広域電話網
                                          Mai Shinano <me@shinanomai.xyz>
-                                           KusaReMKN <mkn@kusarmekn.com>
+                                           KusaReMKN <mkn@kusaremkn.com>
                                                               2026-05-31
 
         第 11 回 Fediverse Linux Users Group 勉強会 に参加します
