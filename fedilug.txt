@@ -1,6 +1,7 @@
 TKYTEL COMMENT XX
                                                           東京広域電話網
                                          Mai Shinano <me@shinanomai.xyz>
+                                           KusaReMKN <mkn@kusarmekn.com>
                                                               2026-05-31
 
         第 11 回 Fediverse Linux Users Group 勉強会 に参加します
@@ -8,12 +9,12 @@ TKYTEL COMMENT XX
 1. はじめに
 
     東京広域電話網は、2026 年 7 月 18 日（土曜日）に下記の通り開催され
-  る 第 11 回 Fediverse Linux Users Group 勉強会 に参加し、展示、発表
+  る「第 11 回 Fediverse Linux Users Group 勉強会」に参加し、展示、発表
   を行う予定です。
 
   イベント名  第 11 回 Fediverse Linux Users Group 勉強会
               <https://fedilug.connpass.com/event/395333/>
-              （主催: Fediverse Linux Users Group）
+              （主催: もちもちずきん）
 
         とき  2026 年 7 月 18 日（土） 13:00 から 17:00 まで
               （日本標準時刻（GMT+09:00））
@@ -33,22 +34,23 @@ TKYTEL COMMENT XX
 
 2. 出展内容
 
-    [TC22] にある Open Source Conference 2026 Osaka とほぼ同様の内容の
-  展示を行います。
+    [TC22] にある Open Source Conference 2026 Osaka で行なった展示を縮
+  小したものを展示する予定です。
 
     既設の東京広域電話網に接続された臨時電話局を用意し、現地で実際に通
   話を体験する展示を行う予定です。また、網上の音声通信を利用したダイヤ
   ルアップ接続の例として、ワードプロセッサでウェブページの表示を行う予
   定です。
 
-    また、現地でライトニングトークを発表する予定です。
+    また、現地で信濃眞伊による東京広域電話網に関するライトニングトーク
+  を発表する予定です。
 
 3. 参加上の注意
 
     イベントに参加するにあたって、下記の点に注意してください。
 
   - 今回のイベントにおける東京広域電話網の出展の代表者は Mai Shinano
-    です。さらに KusaReMKN 及び  を加えた  人で対応します。
+    です。さらに KusaReMKN を加えた 2 人で対応します。
 
   - 上に述べた以外のメンバは、今回のイベントにおける東京広域電話網の参
     加者ではなく、一般の参加者です。
