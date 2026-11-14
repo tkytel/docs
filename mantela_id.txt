@@ -51,4 +51,8 @@ TKYTEL COMMENT XX
     /var/lib/tailscale をそのままコピーすることで、Tailnet 上の IP ア
   ドレスを変化させずにサーバ構成を変更できます（最悪）。
 
+7.  補遺
+
+    この TKYTEL COMMENT の公開を以て Mantela の Wiki は更新されます。
+
                                                                     以上
