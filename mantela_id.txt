@@ -1,7 +1,7 @@
-TKYTEL COMMENT XX
+TKYTEL COMMENT 41
 
                                                           東京広域電話網
-                                                              2026-11-XX
+                                                              2026-11-14
 
    Mantela における aboutMe.identifier 及び providers[].idenfitier の
                            解釈の変更について
